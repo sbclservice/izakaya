@@ -1,0 +1,32 @@
+　<div class="py-1 bg-secondary ">
+
+
+
+    {% if user.is_admin %}
+    <nav class="container d-flex flex-column flex-md-row justify-content-between">
+        <div class="item">
+        <a class="py-2 text-white" href="/">|商品一覧|</a><br><br>
+        <a class="py-2 d-none d-md-inline-block text-white" href="/order/">|未提供(全て)|</a><br><br>
+        <a class="py-2 d-none d-md-inline-block text-white" href="/ordernd/">|未提供(料理)|</a><br><br>
+        <a class="py-2 d-none d-md-inline-block text-white" href="/orderd/">|未提供(飲み物)|</a><br><br>
+        <a class="py-2 d-none d-md-inline-block text-white" href="/order01/">|注文履歴(未会計)|</a><br><br>
+        <a class="py-2 d-none d-md-inline-block text-white" href="/order02/">|注文履歴(全て)|</a><br><br>
+        <a class="py-2 d-none d-md-inline-block text-white" href="/payment01/">|会計画面|</a><br><br>
+        <a class="py-2 d-none d-md-inline-block text-white" href="/item0000/">|商品登録|</a><br><br>
+        <a class="py-2 d-none d-md-inline-block text-white" href="/itemcate/">|カテゴリー登録|</a><br><br>
+        <a class="py-2 d-none d-md-inline-block text-white" href="/item1111/">|商品数変更|</a>
+    </nav>
+    {% else %}
+    <nav class="container d-flex flex-column flex-md-row justify-content-between">
+    <div class="item">
+        <br><br><br>
+        <a class="py-2 text-white" href="/">|全メニュー|</a><br><br>
+        {% for i in categories %}
+        <a class="py-2 d-none d-md-inline-block text-white" href="/categories/{{i.slug}}/">|{{i.name}}|</a><br><br>
+        {% endfor %}
+        <br><br><br><br><br><br>
+    </nav>
+    {% endif %}
+
+
+</div>

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block main %}
+<div class="card card-auth my-5 mx-auto" >
+    <div class="card-body">
+        <h5 class="card-title text-center">カテゴリー登録</h5>
+        <form method="post" enctype="multipart/form-data" class="form-auth h-adr">
+            <!-- form fields -->
+        {% csrf_token %}
+        ＵＲＬ表示名<br>
+        <div class="form-label-group form_wrap form_wrap-2">
+            {% render_field form.slug class="form-control" placeholder="ＵＲＬ名-英語推奨-" %}
+        </div>
+        
+        カテゴリー名<br>
+        <div class="form-label-group form_wrap form_wrap-2">
+            {% render_field form.name class="form-control" placeholder="カテゴリー名" %}
+        </div>
+<br><br>
+        <div class="button mx-auto">
+            <button class="btn btn-lg btn-primary btn-block mx-auto" type="submit">
+                入力内容確認
+            </button>
+        </div>
+                </form>
+    </div>
+</div>
+{% if form.errors %}
+  <div class="alert alert-danger">
+    <strong>入力が間違っています。確認をお願いいたします。</strong>
+    {{ form.errors }}
+  </div>
+{% endif %}
+{% endblock %}

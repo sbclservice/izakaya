@@ -1,0 +1,83 @@
+<!-- pages/orders.html -->
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% load humanize %} 
+{% block main %}
+
+<script>
+    setTimeout(function () {
+    location.reload();
+    }, 3000);
+</script>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <table><tr><td>
+                <h1>未提供注文一覧</h1></td><td width="200" class="text-right">
+                    <a href="/ordernd/">
+                        <button type="button" class="btn btn-info">新規注文順に並び替え</button>
+                        </a></td></tr></table>
+
+            <table class="table mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">一覧</th>
+                        <th scope="col">画像</th>
+                        <th scope="col">品名</th>
+                        <th scope="col">数量</th>
+                        <th scope="col">注文時間</th>
+                        <th scope="col">座席</th>
+                        <th scope="col">調理開始時間</th>
+                        <th scope="col">提供時間</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    {% if item.served == False %}
+                    {% if item.slug != 'drinks' %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><img src="/{{ item.image }}" width="auto" height="30px"></td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.created_at|date:"Y-m-d H:i" }}</td>
+                        <td>{{ item.username }}</td>
+                        <td>
+                            {% if item.served == False and item.cook == False %}
+                        <form method="POST" action="/cooking/{{item.ord}}/{{item.pk}}/">
+                            {% csrf_token %}
+                            <button class="btn btn-danger" type="submit">未調理</button>
+                        </form>
+                        {% elif item.served == 1 and item.cook == False %}
+                        キャンセル済
+                        {% elif item.served != False and item.cook == False %}
+                        提供済
+                        {% else %}
+                        {{item.cook}}
+                        {% endif %}
+                        </td>
+                        <td>
+                            {% if item.served == False %}
+                        <form method="POST" action="/served/{{item.ord}}/{{item.pk}}/">
+                            {% csrf_token %}
+                            <button class="btn btn-danger" type="submit">未提供</button>
+                        </form>
+                        {% elif item.served == 1 %}
+                        キャンセル済
+                        {% else %}
+                        {{item.served}}
+                        {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endif %}
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

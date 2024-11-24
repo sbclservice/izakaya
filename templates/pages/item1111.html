@@ -1,0 +1,75 @@
+<!-- pages/orders.html -->
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% load humanize %}
+{% block main %}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <table>
+                <tr>
+                    <td>
+                        <h1>商品変更</h1>
+                    </td>
+                </tr>
+            </table>
+            <table class="table mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">商品名</th>
+                        <th scope="col">並び順</th>
+                        <th scope="col">変更並び順</th>
+                        <th scope="col">並び順確定</th>
+                        <th scope="col">在庫数</th>
+                        <th scope="col">変更在庫数</th>
+                        <th scope="col">変更確定</th>
+                        <th scope="col">商品削除</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for object in items %}
+                    {% if object.is_published %}
+                        <tr>
+                            <td>{{ object.name }}</td>
+                            <td>{{ object.sort }}</td>
+
+                            <td>
+                                <form method="post" action="/item3333/{{object.id}}/">
+                                    {% csrf_token %}
+                                    <div class="form-label-group">
+                                        {{ forms.sort }}
+                                    </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" type="submit">並び順確定</button>
+                                </form>
+                            </td>
+                            <td>{{ object.stock }}</td>
+                            <td>
+                                <form method="post" action="/item1111/{{object.id}}/">
+                                    {% csrf_token %}
+                                    <div class="form-label-group">
+                                        {{ form.stock }}
+                                    </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" type="submit">変更確定</button>
+                                </form>
+                            </td>
+                            <td><form method="post" action="/item2222/{{object.id}}/">
+                                {% csrf_token %}
+                            <button class="btn btn-danger" type="submit">商品削除</button>
+                            </form>
+
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

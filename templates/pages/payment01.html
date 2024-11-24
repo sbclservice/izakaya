@@ -1,0 +1,47 @@
+<!-- pages/payment01.html -->
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% load humanize %} 
+{% block main %}
+
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+        <h1>会計画面</h1>
+        <table class="table mb-5">
+            <thead>
+            <tr>
+                <th scope="col"> </th>
+                <th scope="col">座席</th>
+                <th scope="col">合計金額</th>
+                <th scope="col">会計確認</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for user_info in user_info_list %}
+                    <tr>
+                        <th scope="row"></th>
+                        <td>
+                            {% if user_info.user_id == 1 %}
+                            スタッフ
+                            {% else %}
+                            座席 : {{ user_info.user_idd }}
+                            {% endif %}
+                        </td>
+                        <td>¥{{ user_info.total_amount_excluding_served|mul:1.1|floatformat:0 | intcomma }}</td>
+                        <td>
+                            <form method="POST" action="/payment/{{ user_info.user_id }}/">
+                                {% csrf_token %}
+                                <button class="btn btn-danger" type="submit">注文内容確認</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+asgiref
+Django
+django-allauth
+django-environ
+django-mathfilters
+django-tz-detect
+django-widget-tweaks
+environ
+humanize
+pillow
+pytz
+sqlparse
+tzdata
+uWSGI
+psycopg2-binary

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block main %}
+<div class="card card-auth my-5 mx-auto" >
+    <div class="card-body">
+        <h5 class="card-title text-center">商品登録</h5>
+        <form method="post" enctype="multipart/form-data" class="form-auth h-adr">
+            <!-- form fields -->
+        {% csrf_token %}
+        商品名<br>
+        <div class="form-label-group form_wrap form_wrap-2">
+            {% render_field form.name class="form-control" placeholder="商品名" %}
+        </div>
+        商品金額<br>
+        <div class="form-label-group">
+            {% render_field form.price class="form-control" placeholder="600" %}
+        </div>
+        商品説明<br>
+        <div class="form-label-group">
+            {% render_field form.description class="form-control" placeholder="商品説明(空白可能)" %}
+        </div>
+        画像<br>
+        <div class="form-label-group">
+            {% render_field form.image class="form-control" %}
+        </div>
+        カテゴリー<br>
+        <div class="form-label-group">
+            {% render_field form.category class="form-control" placeholder="選択必須" %}
+        </div>
+        
+        <div class="button mx-auto">
+            <button class="btn btn-lg btn-primary btn-block mx-auto" type="submit">
+                入力内容確認
+            </button>
+        </div>
+                </form>
+    </div>
+</div>
+{% if form.errors %}
+  <div class="alert alert-danger">
+    <strong>入力が間違っています。確認をお願いいたします。</strong>
+    {{ form.errors }}
+  </div>
+{% endif %}
+{% endblock %}

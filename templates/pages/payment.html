@@ -1,0 +1,54 @@
+<!-- pages/payment.html -->
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% load humanize %} 
+{% block main %}
+
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+        <table><tr><td>
+            <h1>会計確認</h1></td><td width="200" class="text-right">
+            <form method="POST" action="{% url 'paid' id=id %}">
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit">会計確定</button>
+        </form></td></tr></table>
+    
+        <h2 class="table mb-5 text-right">合計金額: ¥{{ total_tax_included |floatformat:0 | intcomma }}</h2>
+
+
+
+        <table class="table mb-5">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">画像</th>
+                <th scope="col">品名</th>
+                <th scope="col">単価</th>
+                <th scope="col">税込</th>
+                <th scope="col">数量</th>
+                <th scope="col">小計</th>
+            </tr>
+            </thead>
+            <tbody>
+
+                {% for item in items %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><img src="/{{ item.image }}" width="auto" height="30px"></td>
+                    <td>{{ item.name }}</td>
+                    <td>¥{{ item.price|floatformat:0|intcomma }}</td>
+                    <td>¥{{ item.price|mul:1.1|floatformat:0|intcomma }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <!-- Perform multiplication using * operator -->
+                    <td>¥{{ item.price|mul:item.quantity|mul:1.1|floatformat:0|intcomma }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
