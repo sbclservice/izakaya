@@ -23,7 +23,7 @@ env = environ.Env()
 PROJECT_DIR = environ.Path(__file__) - 2
 
 # path : ワークフォルダパス
-BASE_DIR = environ.Path(__file__) - 3
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,7 +77,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [Path(BASE_DIR) / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
