@@ -141,7 +141,8 @@ USE_TZ = True
 
 
 # 追加もしくは変更
-STATIC_ROOT = BASE_DIR_PATH("static")
+# STATIC_ROOT = BASE_DIR_PATH("static")
+STATIC_ROOT = BASE_DIR_PATH / "static"
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [BASE_DIR_PATH / 'static']
