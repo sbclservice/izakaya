@@ -23,8 +23,8 @@ env = environ.Env()
 PROJECT_DIR = environ.Path(__file__) - 2
 
 # path : ワークフォルダパス
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+BASE_DIR = environ.Path(__file__) - 3
+BASE_DIR_PATH = Path(BASE_DIR())
 # # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -77,7 +77,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [Path(BASE_DIR) / 'templates'],
+        'DIRS': [BASE_DIR_PATH / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR_PATH / 'db.sqlite3',
     }
 }
 
@@ -141,10 +141,10 @@ USE_TZ = True
 
 
 # 追加もしくは変更
-STATIC_ROOT = BASE_DIR("static")
+STATIC_ROOT = BASE_DIR_PATH("static")
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_DIRS = [BASE_DIR_PATH / 'static']
 
 TAX_RATE = 0.1
 
@@ -152,7 +152,7 @@ TAX_RATE = 0.1
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 
-MEDIA_ROOT = BASE_DIR("media")
+MEDIA_ROOT = BASE_DIR_PATH("media")
 MEDIA_URL = "/media/"
 
 
