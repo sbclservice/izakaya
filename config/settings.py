@@ -153,7 +153,8 @@ TAX_RATE = 0.1
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 
-MEDIA_ROOT = BASE_DIR_PATH("media")
+#MEDIA_ROOT = BASE_DIR_PATH("media")
+MEDIA_ROOT = BASE_DIR_PATH / "media"
 MEDIA_URL = "/media/"
 
 
